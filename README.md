@@ -5,7 +5,7 @@ This package uses service https://ec.europa.eu/taxation_customs/vies/
 ### Install package
 
 ```
-composer require "1.0.0" 
+composer require matejch/vat-id-checker  "1.0.0" 
 ```
 
 ---
@@ -23,5 +23,5 @@ $service->getMessage(); // response message
 ### Remove package
 
 ```
-composer remove 
+composer remove matejch/vat-id-checker
 ```
