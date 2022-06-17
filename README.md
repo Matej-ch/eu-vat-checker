@@ -15,7 +15,7 @@ composer require matejch/vat-id-checker  "1.0.0"
 ```PHP 
 /** EU VAT checker */
 $service = new \matejch\VatIdChecker\Vies();
-$result = $service->validateVat('XX1234567890'); //array with data or false
+$result = $service->validateVat('XX1234567890'); //object with data or false
 
 $service->getMessage(); // response message
 ```
