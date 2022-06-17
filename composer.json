@@ -1,33 +1,37 @@
 {
-    "name": "matejch/vat-id-checker",
-    "description": "Service to check Vat id for EU countries",
-    "license": "MIT",
-    "version": "1.0.0",
-    "keywords": ["vat","eu","VIES VAT number validation","soap"],
-    "authors": [
-        {
-            "name": "Matej Ch",
-            "email": "matejCH.work@gmail.com"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "matejch\\VatIdChecker\\": "src/"
-        }
-    },
-    "require": {
-        "php": ">=7.2.0",
-        "ext-soap": "*"
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "matejch\\VatIdChecker\\tests\\": "tests/"
-        }
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^8.5"
-    },
-    "scripts": {
-        "test": "vendor/bin/phpunit tests/"
+  "name": "matejch/vat-id-checker",
+  "description": "Service to check Vat id for EU countries",
+  "license": "MIT",
+  "keywords": [
+    "vat",
+    "eu",
+    "VIES VAT number validation",
+    "soap"
+  ],
+  "authors": [
+    {
+      "name": "Matej Ch",
+      "email": "matejCH.work@gmail.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "matejch\\VatIdChecker\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=7.2.0",
+    "ext-soap": "*"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "matejch\\VatIdChecker\\tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8.5"
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit tests/"
+  }
 }

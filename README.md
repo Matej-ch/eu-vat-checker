@@ -13,6 +13,11 @@ composer require "1.0.0"
 ### Usage
 
 ```PHP 
+/** EU VAT checker */
+$service = new \matejch\VatIdChecker\Vies();
+$result = $service->validateVat('XX1234567890'); //array with data or false
+
+$service->getMessage(); // response message
 ```
 
 ### Remove package

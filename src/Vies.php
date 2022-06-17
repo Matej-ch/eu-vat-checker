@@ -2,6 +2,7 @@
 
 namespace matejch\VatIdChecker;
 
+use SoapClient;
 use SoapFault;
 
 class Vies
@@ -19,22 +20,19 @@ class Vies
     private $message = '';
 
     /**
-     * Regex for VAT validation, for EU countries
-     * @return bool
-     * @var string
+     * @return array|bool
      */
-    private $vatIdRegex = "/^[a-z]{2}[a-z0-9]{0,12}$/i";
-
-    public function validateVat($vatID): bool
+    public function validateVat(string $vatID)
     {
-        $result = false;
         try {
 
-            if (preg_match($this->vatIdRegex, $vatID) !== 1) {
+            $vatID = str_replace(['-', '.', ' '], '', $vatID);
+
+            if (preg_match($this->getRegexVat(), trim($vatID)) !== 1) {
                 throw new InvalidVatException("Invalid Vat ID Format: $vatID");
             }
 
-            $client = new \SoapClient($this->url);
+            $client = new SoapClient($this->url);
 
             $params = [
                 'countryCode' => substr($vatID, 0, 2),
@@ -42,14 +40,10 @@ class Vies
             ];
 
             $result = $client->checkVatApprox($params);
-
-            $result = true;
-        } catch (InvalidVatException $e) {
-            $this->setMessage('Invalid VAT number format');
-            return false;
-        } catch (SoapFault $e) {
-            $this->setMessage("ec.europa.eu Vies service is currently unavailable: " . $e->getMessage());
-            return false;
+            $this->setMessage('Success');
+        } catch (InvalidVatException|SoapFault $e) {
+            $this->setMessage(trim($e->getMessage()));
+            $result = false;
         }
 
         return $result;
@@ -75,5 +69,15 @@ class Vies
     private function setMessage($message): void
     {
         $this->message = $message;
+    }
+
+    /**
+     * Regex for VAT validation, for EU countries
+     *
+     * @return string
+     */
+    private function getRegexVat(): string
+    {
+        return "/^((AT)?U[0-9]{8}|(BE)?0[0-9]{9}|(BG)?[0-9]{9,10}|(CY)?[0-9]{8}L|(CZ)?[0-9]{8,10}|(DE)?[0-9]{9}|(DK)?[0-9]{8}|(EE)?[0-9]{9}|(EL|GR)?[0-9]{9}|(ES)?[0-9A-Z][0-9]{7}[0-9A-Z]|(FI)?[0-9]{8}|(FR)?[0-9A-Z]{2}[0-9]{9}|(GB)?([0-9]{9}([0-9]{3})?|[A-Z]{2}[0-9]{3})|(HU)?[0-9]{8}|(IE)?[0-9]S[0-9]{5}L|(IT)?[0-9]{11}|(LT)?([0-9]{9}|[0-9]{12})|(LU)?[0-9]{8}|(LV)?[0-9]{11}|(MT)?[0-9]{8}|(NL)?[0-9]{9}B[0-9]{2}|(PL)?[0-9]{10}|(PT)?[0-9]{9}|(RO)?[0-9]{2,10}|(SE)?[0-9]{12}|(SI)?[0-9]{8}|(SK)?[0-9]{10})$/i";
     }
 }
