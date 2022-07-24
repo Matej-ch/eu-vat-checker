@@ -1,4 +1,5 @@
 ![latest_tag](https://badgen.net/github/tag/Matej-ch/eu-vat-checker)
+![test](https://github.com/Matej-ch/eu-vat-checker/actions/workflows/php.yml/badge.svg)
 
 This package uses service https://ec.europa.eu/taxation_customs/vies/
 
